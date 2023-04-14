@@ -36,6 +36,11 @@ form.addEventListener("submit", (e) => {
             .flat()
             .map((weakness) => weakness.name);
 
+          const strengths = typeData
+            .map((data) => data.damage_relations.double_damage_to)
+            .flat()
+            .map((strength) => strength.name);
+
           // Display search results
           const searchResults = document.querySelector("#searchResults");
           searchResults.innerHTML = `
@@ -49,6 +54,7 @@ form.addEventListener("submit", (e) => {
                   <p><strong>Types:</strong> ${types.join(", ")}</p>
                   <p><strong>Abilities:</strong> ${abilities.join(", ")}</p>
                   <p><strong>Weaknesses:</strong> ${weaknesses.join(", ")}</p>
+                  <p><strong>Strengths:</strong> ${strengths.join(", ")}</p>
                   <p><strong>Stats:</strong></p>
                   <ul>
                     ${stats.map((stat) => `<li>${stat}</li>`).join("")}
@@ -71,16 +77,5 @@ form.addEventListener("submit", (e) => {
             </div>
           `;
         });
-    })
-    .catch((error) => {
-      // Display error message
-      const searchResults = document.querySelector("#searchResults");
-      searchResults.innerHTML = `
-        <div class="col-md-6 mx-auto">
-          <div class="alert alert-danger" role="alert">
-            An error occurred. Please try again later.
-          </div>
-        </div>
-      `;
     });
 });
